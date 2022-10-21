@@ -3,7 +3,7 @@ import "./components/category-menu/category-menu.component"
 import Home from "./routes/home/home.component"
 import { Routes, Route } from "react-router-dom"
 import Navigation from "./routes/navigation/navigation.component"
-import SignIn from "./components/sign-in/sign-in.component"
+import Authentication from "./components/authentication/authentication.component"
 //use this syntax when importing
 
 const Shop = () => {
@@ -26,7 +26,7 @@ const App = () => {
       <Route path="/" element={<Navigation />}>
         <Route index="true" element={<Home />} />
         <Route path="shop" element={<Shop />} />
-        <Route path="sign-in" element={<SignIn />} />
+        <Route path="auth" element={<Authentication />} />
 
       </Route>
 
