@@ -15,9 +15,12 @@ const defaultFormFields = {
 
 
 const SignUpForm = () => {
+    // the fact that you are hooked into thew context will causxe react to re run your context
 
     const [formFields, setFormFields] = useState(defaultFormFields)
     const { displayName, email, password, confirmPassword } = formFields
+
+    console.log("hit")
 
     const resetFormFields = () => {
         setFormFields(defaultFormFields)
@@ -35,6 +38,7 @@ const SignUpForm = () => {
 
         try {
             const { user } = await createAuthUserWithEmailAndPassword(email, password)
+
             await createUserDocumentFromAuth(user, { displayName })
             resetFormFields()
         }
