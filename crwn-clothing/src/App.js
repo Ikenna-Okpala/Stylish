@@ -5,10 +5,7 @@ import { Routes, Route } from "react-router-dom"
 import Navigation from "./routes/navigation/navigation.component"
 import Authentication from "./components/authentication/authentication.component"
 //use this syntax when importing
-
-const Shop = () => {
-  return <h1>I am the shop page</h1>
-}
+import Shop from "./routes/shop/shop.component"
 
 
 const App = () => {

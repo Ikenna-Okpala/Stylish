@@ -5,9 +5,16 @@ import { ReactComponent as CrwnLogo } from "../../assets/crown.svg"
 import "./navigation.styles.scss"
 import { UserContext } from "../../contexts/user.context"
 import { signOutUser } from "../../utils/firebase/firebase.utils"
+import CartIcon from "../../components/cart-icon/cart-icon.component"
+import CartDropdown from "../../components/cart-dropdown/cart-dropdown.components"
+import { CartContext } from "../../contexts/cart.context"
 //Fragments are invisible 
 //Link we use to leverage proper routing uusing the same broseer
 const Navigation = () => {
+    const { isCartOpen, setIsCartOpen } = useContext(CartContext)
+    const cartOnClickHandler = () => {
+        console.log("Listening..")
+    }
 
     const { currentUser } = useContext(UserContext)
     return (
@@ -30,8 +37,9 @@ const Navigation = () => {
                             </Link>
                         )
                     }
-
+                    <CartIcon />
                 </div>
+                {isCartOpen && <CartDropdown />}
             </div>
             <Outlet />
         </Fragment>
