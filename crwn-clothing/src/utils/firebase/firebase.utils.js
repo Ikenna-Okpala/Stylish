@@ -10,8 +10,53 @@ import {
     onAuthStateChanged
 } from "firebase/auth"
 
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    collection,
+    writeBatch,
+    query,
+    getDocs
+} from "firebase/firestore"
 
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+    const collectionRef = collection(db, collectionKey)
+
+    //transaction is successful unit of work
+
+    const batch = writeBatch(db)
+
+    objectsToAdd.forEach(object => {
+        const docRef = doc(collectionRef, object.title.toLowerCase())
+
+        batch.set(docRef, object)
+    })
+
+    await batch.commit()
+
+    console.log("Done")
+
+
+}
+
+export const getCategoriesAndDocuments = async () => {
+    const collectionRef = collection(db, "categories")
+
+    const q = query(collectionRef)
+
+    const querySnapshot = await getDocs(q)
+
+    const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+        const { title, items } = docSnapshot.data()
+        //setting key value pairs for object
+        acc[title.toLowerCase()] = items
+        return acc
+    }, {})
+
+    return categoryMap
+}
 const firebaseConfig = {
     apiKey: "AIzaSyCDpGfW9PNGVFCY9tSzRFcinSCAUgwrflo",
     authDomain: "crwn-clothing-db-39b21.firebaseapp.com",
