@@ -8,8 +8,6 @@ import { selectCategories } from "../../store/categories/categories.selector.js"
 
 const Category = () => {
     const { category } = useParams()
-
-    console.log("render/re-rendering category component")
     //useelectors run regardless of the reducer targeted
     const categoriesMap = useSelector(selectCategories)
 
@@ -18,7 +16,6 @@ const Category = () => {
 
 
     useEffect(() => {
-        console.log("effect fired calling setProducts")
         setProducts(categoriesMap[category])
     }, [category, categoriesMap])
 
