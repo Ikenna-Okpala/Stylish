@@ -8,14 +8,31 @@ import Authentication from "./components/authentication/authentication.component
 import Shop from "./routes/shop/shop.component"
 import Checkout from "./routes/checkout/checkout.component"
 
-const App = () => {
+import { useEffect } from "react";
+import { onAuthStateChangedListener, createUserDocumentFromAuth } from "./utils/firebase/firebase.utils";
 
+import { setCurrentUser } from "./store/user/user.action"
+import { useDispatch } from "react-redux"
+
+const App = () => {
+  const dispatch = useDispatch()
   //take all your compoenent in an image
   //add style directly to html elementys using style object
   //routes registers the application as routable
   //parental component is going to render unless we tell it otherwise
   //nested routing
   //index = true tells router to use base elmenet when base uyrl is matched
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        createUserDocumentFromAuth(user)
+      }
+      dispatch(setCurrentUser(user))
+
+    })
+    return unsubscribe
+  }, [])
+
 
   return (
 

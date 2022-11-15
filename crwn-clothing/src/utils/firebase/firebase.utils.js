@@ -48,14 +48,16 @@ export const getCategoriesAndDocuments = async () => {
 
     const querySnapshot = await getDocs(q)
 
-    const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-        const { title, items } = docSnapshot.data()
-        //setting key value pairs for object
-        acc[title.toLowerCase()] = items
-        return acc
-    }, {})
+    return querySnapshot.docs.map(docSnapShot => docSnapShot.data())
 
-    return categoryMap
+    // const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    //     const { title, items } = docSnapshot.data()
+    //     //setting key value pairs for object
+    //     acc[title.toLowerCase()] = items
+    //     return acc
+    // }, {})
+
+    // return categoryMap
 }
 const firebaseConfig = {
     apiKey: "AIzaSyCDpGfW9PNGVFCY9tSzRFcinSCAUgwrflo",
