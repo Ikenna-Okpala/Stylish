@@ -6,6 +6,8 @@ import FormInput from "../form-input/form-input.component"
 import "./sign-up-form.styles.jsx"
 import Button from "../button/button.component"
 import { SignUpContainer } from "./sign-up-form.styles.jsx"
+import { useDispatch } from "react-redux"
+import { signUpStart } from "../../store/user/user.action"
 
 const defaultFormFields = {
     displayName: "",
@@ -17,11 +19,9 @@ const defaultFormFields = {
 
 const SignUpForm = () => {
     // the fact that you are hooked into thew context will causxe react to re run your context
-
+    const dispatch = useDispatch()
     const [formFields, setFormFields] = useState(defaultFormFields)
     const { displayName, email, password, confirmPassword } = formFields
-
-    console.log("hit")
 
     const resetFormFields = () => {
         setFormFields(defaultFormFields)
@@ -38,9 +38,7 @@ const SignUpForm = () => {
         }
 
         try {
-            const { user } = await createAuthUserWithEmailAndPassword(email, password)
-
-            await createUserDocumentFromAuth(user, { displayName })
+            dispatch(signUpStart(email, password, displayName))
             resetFormFields()
         }
         catch (error) {
